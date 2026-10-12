@@ -225,7 +225,8 @@
         align-items: center;
       }
 
-      .gauge-wrap { position: relative; display: grid; place-items: center; min-height: 0; }
+      .gauge-wrap { position: relative; display: grid; place-items: center; min-height: 0; border: 1px solid transparent; border-radius: 20px; cursor: pointer; transition: .18s ease; }
+      .gauge-wrap:hover, .gauge-wrap:focus-visible { border-color: rgba(92, 255, 128, .45); background: rgba(92, 255, 128, .035); outline: none; }
       .gauge { width: min(100%, 330px); aspect-ratio: 1; transform: rotate(-90deg); overflow: visible; }
       .gauge-track { fill: none; stroke: #17303d; stroke-width: 16; }
       .gauge-value {
@@ -294,7 +295,11 @@
         grid-template-rows: auto 1fr auto;
         gap: 7px 16px;
         overflow: hidden;
+        cursor: pointer;
+        transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
       }
+      .metric:hover, .metric:focus-visible, .metric.is-selected { border-color: rgba(91, 218, 244, .65); box-shadow: inset 0 1px rgba(255,255,255,.04), 0 0 22px rgba(91, 218, 244, .1); outline: none; }
+      .metric:active { transform: translateY(1px); }
 
       .metric-icon {
         width: 54px;
@@ -351,8 +356,9 @@
       .chart-time { position: absolute; bottom: 9px; left: 14px; right: 14px; display: flex; justify-content: space-between; color: #62808f; font-size: 11px; }
 
       .system-list { min-height: 0; display: grid; align-content: stretch; }
-      .system-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--line-soft); }
+      .system-row { min-height: 38px; padding: 0 8px; display: flex; align-items: center; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--line-soft); border-radius: 9px; cursor: pointer; transition: .18s ease; }
       .system-row:last-child { border-bottom: 0; }
+      .system-row:hover, .system-row:focus-visible, .system-row.is-selected { background: rgba(38, 103, 132, .18); border-bottom-color: rgba(91, 218, 244, .6); outline: none; }
       .system-row span { color: var(--muted); font-size: 13px; }
       .system-row strong { font-size: 15px; text-align: right; }
       .system-row .ok { color: var(--green); }
@@ -554,8 +560,9 @@
       .weather-station h2 { margin: 0; font-size: 22px; line-height: 1.1; }
       .weather-station p { margin: 7px 0 0; color: var(--muted); font-size: 12px; font-weight: 750; letter-spacing: .09em; }
       .forecast-row { min-width: 0; display: grid; grid-template-columns: repeat(5, 1fr); }
-      .forecast-day { display: grid; place-items: center; align-content: center; gap: 4px; border-right: 1px solid var(--line-soft); }
+      .forecast-day { min-width: 0; margin: 2px; padding: 7px 4px; display: grid; place-items: center; align-content: center; gap: 4px; border: 1px solid transparent; border-right-color: var(--line-soft); border-radius: 10px; cursor: pointer; transition: .18s ease; }
       .forecast-day:last-child { border-right: 0; }
+      .forecast-day:hover, .forecast-day:focus-visible, .forecast-day.is-selected { border-color: rgba(91, 218, 244, .62); background: rgba(38, 103, 132, .2); box-shadow: inset 0 0 16px rgba(91, 218, 244, .08); outline: none; }
       .forecast-day span { color: var(--muted); font-size: 11px; font-weight: 800; }
       .forecast-day i { font-style: normal; font-size: 24px; line-height: 1; }
       .forecast-day strong { font-size: 13px; font-variant-numeric: tabular-nums; }
@@ -823,15 +830,15 @@
             </div>
           </div>
           <div class="forecast-row" aria-label="5일 기상 예보">
-            <div class="forecast-day"><span>오늘</span><i>☀</i><strong>18° / 7°</strong><small>강수 0%</small></div>
-            <div class="forecast-day"><span>금요일</span><i>☀</i><strong>20° / 9°</strong><small>강수 0%</small></div>
-            <div class="forecast-day"><span>토요일</span><i>☁</i><strong>19° / 11°</strong><small>강수 10%</small></div>
-            <div class="forecast-day"><span>일요일</span><i>🌧</i><strong>16° / 9°</strong><small>강수 60%</small></div>
-            <div class="forecast-day"><span>월요일</span><i>⛅</i><strong>17° / 8°</strong><small>강수 20%</small></div>
+            <div class="forecast-day is-selected" role="button" tabindex="0" aria-pressed="true" data-label="오늘" data-temp="18°C" data-wind="310° · 6 kt" data-rain="0%"><span>오늘</span><i>☀</i><strong>18° / 7°</strong><small>강수 0%</small></div>
+            <div class="forecast-day" role="button" tabindex="0" aria-pressed="false" data-label="금요일" data-temp="20°C" data-wind="280° · 8 kt" data-rain="0%"><span>금요일</span><i>☀</i><strong>20° / 9°</strong><small>강수 0%</small></div>
+            <div class="forecast-day" role="button" tabindex="0" aria-pressed="false" data-label="토요일" data-temp="19°C" data-wind="240° · 10 kt" data-rain="10%"><span>토요일</span><i>☁</i><strong>19° / 11°</strong><small>강수 10%</small></div>
+            <div class="forecast-day" role="button" tabindex="0" aria-pressed="false" data-label="일요일" data-temp="16°C" data-wind="210° · 12 kt" data-rain="60%"><span>일요일</span><i>🌧</i><strong>16° / 9°</strong><small>강수 60%</small></div>
+            <div class="forecast-day" role="button" tabindex="0" aria-pressed="false" data-label="월요일" data-temp="17°C" data-wind="300° · 7 kt" data-rain="20%"><span>월요일</span><i>⛅</i><strong>17° / 8°</strong><small>강수 20%</small></div>
           </div>
           <div class="weather-summary">
-            <span>현재 기온</span><strong class="weather-temp">18°C</strong>
-            <span>바람</span><strong>310° · 6 kt</strong>
+            <span>선택 기온</span><strong class="weather-temp" id="weatherTemp">18°C</strong>
+            <span>바람</span><strong id="weatherWind">310° · 6 kt</strong>
             <button class="weather-toggle" id="weatherToggle" type="button">METAR 상세</button>
           </div>
           <div class="metar-box" aria-live="polite">
@@ -854,7 +861,7 @@
           </div>
 
           <div class="hero-body">
-            <div class="gauge-wrap" aria-label="배터리 충전량 72퍼센트">
+            <div class="gauge-wrap" role="button" tabindex="0" aria-label="배터리 충전량 72퍼센트">
               <svg class="gauge" viewBox="0 0 240 240" aria-hidden="true">
                 <defs>
                   <linearGradient id="gaugeGradient" x1="0" x2="1"><stop offset="0" stop-color="#17d967"/><stop offset="1" stop-color="#8aff9c"/></linearGradient>
@@ -888,7 +895,7 @@
         </section>
 
         <section class="metrics" aria-label="충전기 측정값">
-          <article class="panel metric">
+          <article class="panel metric" role="button" tabindex="0" data-title="배터리 전압" data-detail="고전압 DC 링크가 안정 범위에서 유지되고 있습니다.">
             <div class="metric-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="6" y="3" width="12" height="18" rx="2"/><path d="M10 1h4M9 16V8l6 4-6 4Z" fill="currentColor" stroke="none"/></svg>
             </div>
@@ -896,7 +903,7 @@
             <strong class="metric-value"><b id="voltage">801</b> <small>V</small></strong>
             <div class="metric-foot"><span>정상 범위</span><div class="meter"><i style="--level:72%"></i></div></div>
           </article>
-          <article class="panel metric">
+          <article class="panel metric" role="button" tabindex="0" data-title="커넥터 온도" data-detail="냉각 루프가 열을 안정적으로 낮추고 있습니다.">
             <div class="metric-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v10M8 7h8"/><path d="M8 13.5a5 5 0 1 0 8 0V6a4 4 0 0 0-8 0v7.5Z"/></svg>
             </div>
@@ -904,7 +911,7 @@
             <strong class="metric-value"><b id="temperature">31.8</b><small>°C</small></strong>
             <div class="metric-foot"><span>제한 65°C</span><div class="meter"><i id="tempMeter" style="--level:49%;background:linear-gradient(90deg,#55dff7,#ffbe55)"></i></div></div>
           </article>
-          <article class="panel metric">
+          <article class="panel metric" role="button" tabindex="0" data-title="출력 전류" data-detail="현재 충전 프로파일의 DC 출력 전류입니다.">
             <div class="metric-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2 5 14h6l-1 8 9-13h-6V2Z"/></svg>
             </div>
@@ -912,7 +919,7 @@
             <strong class="metric-value"><b id="current">158.3</b> <small>A</small></strong>
             <div class="metric-foot"><span>DC 출력</span><div class="meter"><i style="--level:64%"></i></div></div>
           </article>
-          <article class="panel metric">
+          <article class="panel metric" role="button" tabindex="0" data-title="세션 경과" data-detail="커넥터 연결 이후 누적된 충전 세션 시간입니다.">
             <div class="metric-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg>
             </div>
@@ -971,10 +978,10 @@
               <div class="chart-time"><span>-30분</span><span>-20분</span><span>-10분</span><span>현재</span></div>
             </div>
             <div class="system-list" aria-label="시스템 상태">
-              <div class="system-row"><span>충전 모드</span><strong>CC → CV</strong></div>
-              <div class="system-row"><span>케이블 잠금</span><strong class="ok">정상</strong></div>
-              <div class="system-row"><span>냉각 루프</span><strong class="ok">운전 중</strong></div>
-              <div class="system-row"><span>통신 상태</span><strong class="ok">18 ms</strong></div>
+              <div class="system-row" role="button" tabindex="0" data-title="충전 모드" data-detail="정전류에서 정전압으로 전환되는 CC → CV 프로파일입니다."><span>충전 모드</span><strong>CC → CV</strong></div>
+              <div class="system-row" role="button" tabindex="0" data-title="케이블 잠금" data-detail="커넥터 잠금 센서가 정상적으로 체결되어 있습니다."><span>케이블 잠금</span><strong class="ok">정상</strong></div>
+              <div class="system-row" role="button" tabindex="0" data-title="냉각 루프" data-detail="펌프와 열교환기가 운전 중입니다."><span>냉각 루프</span><strong class="ok">운전 중</strong></div>
+              <div class="system-row" role="button" tabindex="0" data-title="통신 상태" data-detail="충전기와 항공기 간 링크 지연은 18 ms입니다."><span>통신 상태</span><strong class="ok">18 ms</strong></div>
             </div>
           </div>
           </section>
@@ -1116,6 +1123,43 @@
           toastTimer = setTimeout(() => toast.classList.remove("show"), 2300);
         }
 
+        function bindPress(elements, handler) {
+          elements.filter(Boolean).forEach((element) => {
+            element.addEventListener("click", () => handler(element));
+            element.addEventListener("keydown", (event) => {
+              if (event.key !== "Enter" && event.key !== " ") return;
+              event.preventDefault();
+              handler(element);
+            });
+          });
+        }
+
+        function selectForecast(day) {
+          $$(".forecast-day").forEach((item) => {
+            const selected = item === day;
+            item.classList.toggle("is-selected", selected);
+            item.setAttribute("aria-pressed", String(selected));
+          });
+          $("#weatherTemp").textContent = day.dataset.temp;
+          $("#weatherWind").textContent = day.dataset.wind;
+          showToast(`${day.dataset.label} 예보 선택 · ${day.dataset.temp} · 강수 ${day.dataset.rain}`);
+        }
+
+        function showMetricDetail(card) {
+          $$(".metric").forEach((item) => item.classList.toggle("is-selected", item === card));
+          const value = card.querySelector(".metric-value")?.textContent.replace(/\s+/g, " ").trim() ?? "현재 값";
+          showToast(`${card.dataset.title}: ${value} · ${card.dataset.detail}`);
+        }
+
+        function showSystemDetail(row) {
+          $$(".system-row").forEach((item) => item.classList.toggle("is-selected", item === row));
+          showToast(`${row.dataset.title}: ${row.dataset.detail}`);
+        }
+
+        function showGaugeDetail() {
+          showToast(`배터리 ${state.soc.toFixed(1)}% · 목표 ${state.target}% · ${state.mode === "charging" ? "충전 진행 중" : "출력 대기"}`);
+        }
+
         function render() {
           const isCharging = state.mode === "charging";
           const isPaused = state.mode === "paused";
@@ -1213,6 +1257,10 @@
         }));
         $("#saveTarget").addEventListener("click", () => applyTarget(state.pendingTarget));
         $$('[data-close-dialog]').forEach((button) => button.addEventListener("click", () => button.closest("dialog").close()));
+        bindPress($$(".forecast-day"), selectForecast);
+        bindPress($$(".metric"), showMetricDetail);
+        bindPress($$(".system-row"), showSystemDetail);
+        bindPress([$(".gauge-wrap")], showGaugeDetail);
 
         $$(".tab").forEach((tab) => tab.addEventListener("click", () => {
           const chart = charts[tab.dataset.chart];
